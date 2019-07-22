@@ -34,8 +34,8 @@ public class User {
 	@JoinColumn(name = "profile_id", referencedColumnName = "id")
 	private Profile profile;
 
-	@OneToMany(mappedBy = "comment") // we need to duplicate the physical information
-	private List<User> users;
+	@OneToMany(mappedBy = "user") // we need to duplicate the physical information
+	private List<Comment> comments;
 
 	@OneToOne(mappedBy = "id")
 	private RegJob regjob;
@@ -86,12 +86,12 @@ public class User {
 		this.profile = profile;
 	}
 
-	public Comment getComment() {
-		return comment;
+	public List<Comment> getComments() {
+		return comments;
 	}
 
-	public void setComment(Comment comment) {
-		this.comment = comment;
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 }

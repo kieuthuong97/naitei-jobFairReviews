@@ -29,7 +29,6 @@ public class Comment {
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private User user;
 	
-
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "job_id", referencedColumnName = "id")
 	private Job job;

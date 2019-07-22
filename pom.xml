@@ -9,7 +9,12 @@
 
 	<properties>
 		<jdk>1.8</jdk>
-		<spring.version>5.0.2.RELEASE</spring.version>
+		<spring.version>5.1.5.RELEASE</spring.version>
+		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+		<junit.version>4.12</junit.version>
+		<logback.version>1.2.3</logback.version>
+		<jetty-maven-plugin.version>9.4.15.v20190215</jetty-maven-plugin.version>
+		
 		<mysql-connector-java>6.0.6</mysql-connector-java>
 		<hibernate.version>5.3.0.Final</hibernate.version>
 		<hibernate-validator>6.0.7.Final</hibernate-validator>
@@ -21,21 +26,21 @@
 		<log4j.version>1.2.17</log4j.version>
 		<javassist.version>3.19.0-GA</javassist.version>
 		<aspectj.version>1.6.10</aspectj.version>
-		<log4j.version>1.2.17</log4j.version>
+		
 		<inject.version>1</inject.version>
 		<servletapi.version>2.5</servletapi.version>
 		
-		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+		
 		
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
 
 		<!-- Hiberante -->
 		<dependency>
@@ -197,6 +202,12 @@
 			<artifactId>thymeleaf-spring5</artifactId>
 			<version>${thymeleaf.version}</version>
 		</dependency>
+		<!--logback  -->
+		<dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -211,6 +222,17 @@
 					<target>${jdk}</target>
 				</configuration>
 			</plugin>
+			<plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <version>${jetty-maven-plugin.version}</version>
+            <configuration>
+                <scanIntervalSeconds>10</scanIntervalSeconds>
+                <webApp>
+                    <contextPath>/</contextPath>
+                </webApp>
+            </configuration>
+        </plugin>
 		</plugins>
 	</build>
 </project>
