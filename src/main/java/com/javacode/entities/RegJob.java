@@ -1,5 +1,7 @@
 package com.javacode.entities;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,13 +25,12 @@ public class RegJob {
 	@Column(name = "status")
 	private int status;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	@ManyToOne 
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "job_id", referencedColumnName = "id")
-	private Job job;
+	
+	@OneToMany(mappedBy = "reg_job") // we need to duplicate the physical information
+	private List<Job> jobs;
 
 	public int getId() {
 		return id;
@@ -53,19 +56,20 @@ public class RegJob {
 		this.user = user;
 	}
 
-	public Job getJob() {
-		return job;
+	public List<Job> getJobs() {
+		return jobs;
 	}
 
-	public void setJob(Job job) {
-		this.job = job;
+	public void setJobs(List<Job> jobs) {
+		this.jobs = jobs;
 	}
 
-	public RegJob(int id, int status, User user, Job job) {
+	public RegJob(int id, int status, User user, List<Job> jobs) {
+		super();
 		this.id = id;
 		this.status = status;
 		this.user = user;
-		this.job = job;
+		this.jobs = jobs;
 	}
 
 }

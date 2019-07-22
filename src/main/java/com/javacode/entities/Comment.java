@@ -28,10 +28,9 @@ public class Comment {
 	@ManyToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private User user;
-	
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "job_id", referencedColumnName = "id")
+	@ManyToOne
+	@JoinColumn(name = "job_id", insertable = false, updatable = false)
 	private Job job;
 
 	public Comment() {

@@ -1,8 +1,8 @@
 package com.javacode.entities;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -36,12 +37,13 @@ public class Job {
 	@Column(name = "urlDetailImage")
 	private String urlDetailImage;
 
-	@OneToOne(mappedBy = "id")
+	@ManyToOne
+	@JoinColumn(name = "job_id", insertable = false, updatable = false)
 	private RegJob regjob;
-
-	@OneToOne(mappedBy = "id")
+	
+	@OneToOne(mappedBy = "id") // giong cmt
 	private RatingJob ratingjob;
-
+	
 	@OneToOne(mappedBy = "id")
 	private Comment comment;
 

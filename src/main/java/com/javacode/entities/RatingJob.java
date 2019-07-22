@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,12 +22,12 @@ public class RatingJob {
 	@Column(name = "rating")
 	private float rating;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	@ManyToOne 
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "job_id", referencedColumnName = "id")
+	@ManyToOne 
+	@JoinColumn(name = "job_id", nullable = false)
 	private Job job;
 
 	public int getId() {
