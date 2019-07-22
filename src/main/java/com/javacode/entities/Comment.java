@@ -31,6 +31,7 @@ public class Comment {
 
 	@ManyToOne
 	@JoinColumn(name = "job_id", insertable = false, updatable = false)
+
 	private Job job;
 
 	public Comment() {

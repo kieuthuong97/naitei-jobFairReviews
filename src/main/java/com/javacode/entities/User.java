@@ -37,15 +37,12 @@ public class User {
 	@OneToMany(mappedBy = "user") // we need to duplicate the physical information
 	private List<Comment> comments;
 
-//	@OneToOne(mappedBy = "id")
-//	private RegJob regjob;
-
 	@OneToMany(mappedBy = "user") // we need to duplicate the physical information
 	private List<RegJob> regjobs;
 	
 	@OneToMany(mappedBy = "user") // ok
 	private List<RatingJob> ratingjobs;
-	
+
 	public User() {
 	}
 
