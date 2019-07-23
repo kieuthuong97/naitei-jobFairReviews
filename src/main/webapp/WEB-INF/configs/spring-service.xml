@@ -4,5 +4,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
+	<bean id="JobService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="com.javacode.service.impl.JobServiceImpl">
+				<property name="jobDAO" ref="jobDAO" />
+			</bean>
+		</property>
+	</bean>
 
 </beans>
