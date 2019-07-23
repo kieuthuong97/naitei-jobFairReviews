@@ -29,7 +29,7 @@ public class Job {
 	private int id;
 
 	@Column(name = "jobTittle")
-	private String jobTittle;
+	private String jobTitle;
 
 	@Column(name = "language")
 	private String language;

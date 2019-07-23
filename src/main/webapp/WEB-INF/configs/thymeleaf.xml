@@ -9,19 +9,26 @@
 	<mvc:resources mapping="/assets/**" location="/assets/" />
 
 	<bean id="templateResolver"
-		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+		class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
 		<property name="prefix" value="" />
 		<property name="suffix" value=".html" />
 		<property name="templateMode" value="HTML5" />
+		<property name="cacheable" value="false" />
 	</bean>
 
+	<!-- Template layout -->
 	<bean id="templateEngine"
 		class="org.thymeleaf.spring5.SpringTemplateEngine">
 		<property name="templateResolver" ref="templateResolver" />
+		<property name="additionalDialects">
+			<set>
+				<bean class="nz.net.ultraq.thymeleaf.LayoutDialect" />
+			</set>
+		</property>
 	</bean>
 
 	<bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 		<property name="templateEngine" ref="templateEngine" />
+		<property name="characterEncoding" value="UTF-8" />
 	</bean>
-
 </beans>

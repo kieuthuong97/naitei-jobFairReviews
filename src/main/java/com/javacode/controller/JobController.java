@@ -19,6 +19,6 @@ public class JobController {
 	@GetMapping({ "/" })
 	public String index(Model model) {
 		model.addAttribute("jobs", jobService.findAll());
-		return "views/user/index";
+		return "views/jobs/index";
 	}
 }
