@@ -1,15 +1,11 @@
 package com.javacode.service.impl;
-
 import com.javacode.dao.JobDAO;
-
+import com.javacode.dao.UserDAO;
+import lombok.Getter;
+import lombok.Setter;
+@Setter
+@Getter
 public class BaseServiceImpl {
 	protected JobDAO jobDAO;
-
-	public JobDAO getJobDAO() {
-		return jobDAO;
-	}
-
-	public void setJobDAO(JobDAO jobDAO) {
-		this.jobDAO = jobDAO;
-	}
+	protected UserDAO userDAO;
 }

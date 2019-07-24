@@ -4,27 +4,59 @@
 	layout:decorate="views/layout/base-layout">
 
 <div layout:fragment="body">
-	<div class="container text-center" >
-		<h1>Job</h1>
-		<table class="table table-hover table-dark">
-			<thead class="bg-primary">
-				<tr>
-					<th scope="col" class="text-center">Id</th>
-					<th scope="col" class="text-center">Name</th>
-					<th scope="col" class="text-center">Salary</th>
-				</tr>
-			</thead>
-			<tbody>
-				<th:block th:each="job : ${jobs}">
-					<tr>
-						<td th:text="${job.id}"></td>
-						<td th:text="${job.jobTitle}"></td>
-						<td th:text="${job.salary}"></td>
-					</tr>
-				</th:block>
-			</tbody>
-		</table>
+	<div class="container">
+		<div th:if="${msg != null}" class="alert alert-dismissible "
+			th:class="${css == 'error' ? 'alert-error' : 'alert-success'} + ' alert text-center'"
+			role="alert">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong><span th:text="${msg}"></span></strong>
+		</div>
+		<div class="row pull-right">
+			<a th:href="@{'/jobs/add'}" class="btn btn-success">Add Job</a>
+		</div>
+		<div class="row md-col-8">
+			<h2>Search From</h2>
+		</div>
+		<div class="row" style="margin-top: 20px">
+			<div class="md-col-8">
+				<fieldset>
+					<legend>
+						<h2>Job List</h2>
+					</legend>
+					<table class="table table-hover table-dark text-center">
+						<thead class="bg-primary">
+							<tr>
+								<th scope="col" class="text-center">#</th>
+								<th scope="col" class="text-center">Title</th>
+								<th scope="col" class="text-center">Description</th>
+								<th scope="col" class="text-center">Language</th>
+								<th scope="col" class="text-center">Salary</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="job,iter : ${jobs}">
+								<tr th:style="${iter.odd}? 'background-color: #ccc;'">
+									<th th:text="${iter.index + 1}"></th>
+									<td th:text="${job.jobTitle}"></td>
+									<td th:text="${job.description}"></td>
+									<td th:text="${job.salary}"></td>
+									<td><a class="btn btn-primary"
+										th:href="@{'jobs/' +${job.id}}"> Detail</a> <a
+										class="btn btn-warning"
+										th:href="@{'/jobs/' + ${job.id} + '/edit'}"> Edit</a> <a
+										class="btn btn-danger"
+										th:href="@{'jobs/' + ${job.id} +'/delete'}"> Delete</a></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</fieldset>
+			</div>
+		</div>
 	</div>
 </div>
-
 </html>

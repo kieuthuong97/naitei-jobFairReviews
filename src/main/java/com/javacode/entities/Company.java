@@ -37,5 +37,4 @@ public class Company {
 
 	@OneToMany(mappedBy = "company") // we need to duplicate the physical information
 	private List<Job> jobs;
-
 }

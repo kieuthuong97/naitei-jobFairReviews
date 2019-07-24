@@ -49,5 +49,15 @@ public class JobServiceImpl extends BaseServiceImpl implements JobService {
 			return null;
 		}
 	}
-
+	
+	@Override
+	public boolean deleteJob(Integer id) {
+		try {
+			Job job = getJobDAO().findById(id);
+			return delete(job);
+		} catch (Exception e) {
+			logger.error(e);
+			throw e;
+		}
+	}
 }

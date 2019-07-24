@@ -9,4 +9,11 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+
+	<bean id="userDAO" class="com.javacode.dao.impl.UserDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
 </beans>
