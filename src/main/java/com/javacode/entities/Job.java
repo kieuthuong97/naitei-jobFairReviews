@@ -28,12 +28,15 @@ public class Job {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "jobTittle")
+	@Column(name = "jobTitle")
 	private String jobTitle;
 
 	@Column(name = "language")
 	private String language;
 
+	@Column(name = "description")
+	private String description;
+	
 	@Column(name = "created_at")
 	private Date created_at;
 
