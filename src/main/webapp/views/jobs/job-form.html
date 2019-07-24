@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="views/layout/base-layout">
+
+<div layout:fragment="body">
+	<div class="container" style="margin: 0 auto;">
+
+		<h1 th:if="${status == 'add'}">Add Job</h1>
+		<h1 th:unless="${status == 'add'}">Update Job</h1>
+
+		<br />
+
+		<div class="col-md-6" style="margin: 0 auto;">
+
+			<form action="#" th:action="@{/jobs}" class="form-horizontal"
+				method="post" th:object="${jobForm}">
+				<input type="hidden" th:field="*{id}" />
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Title</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{jobTitle}" class="form-control"
+							placeholder="Title" />
+						<li th:errors="*{jobTitle}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Language</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{language}" class="form-control"
+							placeholder="Language" />
+						<li th:errors="*{language}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Salary</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{salary}" class="form-control"
+							placeholder="Salary" />
+						<li th:errors="*{salary}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Description</label>
+					<div class="col-sm-10">
+						<textarea name="" id="" cols="30" rows="10"
+							class="rounded-0 form-control" th:field="*{description}"
+							placeholder="Description..."></textarea>
+						<li th:errors="*{description}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2">
+						<input type="submit" class="btn btn-success" value="Submit" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</html>
