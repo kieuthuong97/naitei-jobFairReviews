@@ -44,5 +44,4 @@ public class Profile {
 
 	@OneToOne(mappedBy = "profile")
 	private User user;
-	
 }

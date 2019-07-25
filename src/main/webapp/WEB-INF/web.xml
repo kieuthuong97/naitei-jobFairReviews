@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 
-	<display-name>springmvc</display-name>
+	<display-name>jobfair</display-name>
 
 	<!-- Spring MVC -->
 	<context-param>
@@ -24,7 +24,7 @@
 		<load-on-startup>1</load-on-startup>
 		<async-supported>true</async-supported>
 	</servlet>
-	
+
 	<!-- Config url which can passed -->
 	<servlet-mapping>
 		<servlet-name>springmvc</servlet-name>

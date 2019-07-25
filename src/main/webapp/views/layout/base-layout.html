@@ -63,13 +63,11 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var menudd = Cookies.get('menu-dd');
-
 		if (menudd != null) {
 			$("#" + menudd).addClass("active");
 		} else {
 			Cookies.set('menu-dd', "user");
 		}
-
 		$(".treeview").each(function() {
 			$(this).click(function() {
 				$(this.id).addClass("active");
@@ -103,17 +101,14 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-
 			$(function() {
 				$(".datepicker").datepicker({
 					todayBtn : "linked",
 					autoclose : true,
 					todayHighlight : true
-
 				});
 			});
 		});
 	</script>
 </body>
 </html>
-

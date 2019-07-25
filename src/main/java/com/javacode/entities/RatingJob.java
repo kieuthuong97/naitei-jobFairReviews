@@ -35,5 +35,4 @@ public class RatingJob {
 	@ManyToOne
 	@JoinColumn(name = "job_id", nullable = false)
 	private Job job;
-
 }
