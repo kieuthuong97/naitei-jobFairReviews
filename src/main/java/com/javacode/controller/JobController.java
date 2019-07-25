@@ -77,7 +77,7 @@ public class JobController {
 		return "views/jobs/job-form";
 
 	}
-	
+
 	@RequestMapping(value = "/jobs", method = RequestMethod.POST)
 	public String submitAddOrUpdateJob(@ModelAttribute("jobForm") Job job, BindingResult bindingResult, Model model) {
 		logger.info("add/update student");

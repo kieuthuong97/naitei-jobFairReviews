@@ -1,7 +1,6 @@
 package com.javacode.entities;
 
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,8 +29,11 @@ public class User {
 	private int id;
 
 	@Column(name = "name")
+	@NotEmpty(message = "{NotEmpty.user.name}")
 	private String name;
 
+	@NotEmpty(message = "{Email not empty}")
+	@Email
 	@Column(name = "email")
 	private String email;
 

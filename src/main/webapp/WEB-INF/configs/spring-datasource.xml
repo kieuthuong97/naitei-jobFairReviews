@@ -13,8 +13,6 @@
 		transaction-manager="transactionManager" />
 	<context:property-placeholder
 		location="classpath:datasources.properties" />
-	<context:property-placeholder
-		location="classpath:datasources.properties" />
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${mysql.driver}" />
