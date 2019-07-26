@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-
 import com.javacode.dao.impl.UserDAOImpl;
 import com.javacode.entities.User;
 import com.javacode.service.UserService;

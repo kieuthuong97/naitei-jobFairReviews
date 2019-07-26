@@ -29,11 +29,11 @@ public class User {
 	private int id;
 
 	@Column(name = "name")
-	@NotEmpty(message = "{NotEmpty.user.name}")
+	@NotEmpty(message = "{user.name.notEmpty}")
 	private String name;
 
-	@NotEmpty(message = "{Email not empty}")
-	@Email
+	@NotEmpty(message = "{user.email.notEmpty}")
+	@Email(message = "{user.email.email}")
 	@Column(name = "email")
 	private String email;
 

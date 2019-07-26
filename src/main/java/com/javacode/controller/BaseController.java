@@ -9,10 +9,10 @@ import com.javacode.service.UserService;
 public class BaseController {
 	@Autowired
 	protected MessageSource messageSource;
-	
+
 	@Autowired
 	protected JobService jobService;
-	
+
 	@Autowired
 	protected UserService userService;
 

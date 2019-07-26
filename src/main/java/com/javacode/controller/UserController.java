@@ -1,10 +1,10 @@
 package com.javacode.controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javacode.entities.User;
-import com.javacode.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-public class UserController extends BaseController{
+public class UserController extends BaseController {
 
 	@GetMapping({ "/users" })
 	public String index(Model model) {
@@ -36,11 +35,14 @@ public class UserController extends BaseController{
 		log.info("delete user");
 		if (userService.deleteUser(id)) {
 			redirectAttributes.addFlashAttribute("css", "success");
-			redirectAttributes.addFlashAttribute("msg", "Delete user");
-			
+
+			redirectAttributes.addFlashAttribute("msg",
+					messageSource.getMessage("user.delete.success", null, Locale.US));
+
 		} else {
 			redirectAttributes.addFlashAttribute("css", "error");
-			redirectAttributes.addFlashAttribute("msg", "Delete fail");
+			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("user.delete.fail", null, Locale.US));
+
 		}
 		return "redirect:/users";
 	}
@@ -63,18 +65,30 @@ public class UserController extends BaseController{
 
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	public String submitAddOrUpdateUser(@Valid @ModelAttribute("userForm") User user, BindingResult bindingResult,
-			@RequestParam("status") String status, Model model, final RedirectAttributes redirectAttributes) {
+
+			@RequestParam("status") String status, @RequestParam("email") String email, Model model,
+			final RedirectAttributes redirectAttributes) {
 		log.info("submit add/update user");
 		if (bindingResult.hasErrors()) {
+			model.addAttribute("css", "error");
+			model.addAttribute("status", status);
+			if (status.equals("add")) {
+				model.addAttribute("msg", messageSource.getMessage("user.add.error", null, Locale.US));
+			}
+			if (status.equals("edit")) {
+				model.addAttribute("msg", messageSource.getMessage("user.edit.error", null, Locale.US));
+			}
 			return "views/user/user-form";
 		}
+
 		userService.saveOrUpdate(user);
 		model.addAttribute("user", user);
 		if (status.equals("add")) {
-			redirectAttributes.addFlashAttribute("msg", "User is added!");
+			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("user.add.success", null, Locale.US));
 		}
 		if (status.equals("edit")) {
-			redirectAttributes.addFlashAttribute("msg", "User is updated!");
+			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("user.edit.success", null, Locale.US));
+
 		}
 		return "redirect:/users";
 	}
