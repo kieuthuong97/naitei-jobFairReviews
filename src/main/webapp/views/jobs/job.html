@@ -5,70 +5,67 @@
 
 <div layout:fragment="body">
 	<div class="container">
-
 		<div class="row">
-			<div
-				class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
-				<div th:if="${msg != null}"
-					class="alert alert-dismissible alert-th:text='@{css}'" role="alert">
-					<button type="button" class="close" data-dismiss="alert"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<strong><span th:text="@{msg}"></span></strong>
+			<!-- Alert -->
+			<div th:if="${msg != null}" class="alert alert-dismissible "
+				th:class="${css == 'error' ? 'alert-error' : 'alert-success'} + ' alert text-center'"
+				role="alert">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong><span th:text="${msg}"></span></strong>
+			</div>
+			<!-- end Alert -->
+			<div class="panel panel-info" th:if="${msg == null}">
+				<div class="panel-heading">
+					<h3 class="panel-title">Job Details</h3>
 				</div>
-
-				<div class="panel panel-info" th:if="${msg == null}">
-					<div class="panel-heading">
-						<h3 class="panel-title">Job Details</h3>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-3 col-lg-3 text-center ">
-								<img alt="Job Pic"
-									src="https://cdn1.iconfinder.com/data/icons/business-charts/512/customer-512.png"
-									class="img-circle img-responsive">
-							</div>
-							<div class=" col-md-9 col-lg-9 ">
-								<table class="table table-user-information">
-									<tbody>
-										<tr>
-											<td>Title</td>
-											<td th:text="${job.jobTitle}" />
-										</tr>
-										<tr>
-											<td>Description</td>
-											<td th:text="${job.description}" /></td>
-										</tr>
-										<tr>
-											<td>Language</td>
-											<td th:text="${job.language}" /></td>
-										</tr>
-										<tr>
-											<td>Salary</td>
-											<td th:text="${job.salary}" /></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-3 col-lg-3 text-center ">
+							<img alt="Job Pic"
+								src="https://cdn1.iconfinder.com/data/icons/business-charts/512/customer-512.png"
+								class="img-circle img-responsive">
+						</div>
+						<div class=" col-md-9 col-lg-9 ">
+							<table class="table table-user-information">
+								<tbody>
+									<tr>
+										<td>Title</td>
+										<td th:text="${job.jobTitle}" />
+									</tr>
+									<tr>
+										<td>Description</td>
+										<td th:text="${job.description}" /></td>
+									</tr>
+									<tr>
+										<td>Language</td>
+										<td th:text="${job.language}" /></td>
+									</tr>
+									<tr>
+										<td>Salary</td>
+										<td th:text="${job.salary}" /></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					<div class="panel-footer" style="height: 50px; !important">
-						<span class="pull-right"> <a
-							th:href="@{'/jobs/' + ${job.id} + '/edit'}"
-							data-original-title="Edit this job" data-toggle="tooltip"
-							type="button" class="btn btn-sm btn-warning"><i
-								class="glyphicon glyphicon-edit"></i></a> <a th:href="@{'/'}"
-							data-original-title="Job list" data-toggle="tooltip"
-							type="button" class="btn btn-sm btn-primary"><i
-								class="glyphicon glyphicon-th-list"></i></a> <a
-							th:href="@{'jobs/' + ${job.id} +'/delete'}"
-							data-original-title="Remove this job" data-toggle="tooltip"
-							type="button" class="btn btn-sm btn-danger"><i
-								class="glyphicon glyphicon-remove"></i></a>
-						</span>
-					</div>
-
+				</div>
+				<div class="panel-footer" style="height: 50px; !important">
+					<span class="pull-right"> <a
+						th:href="@{'/jobs/' + ${job.id} + '/edit'}"
+						data-original-title="Edit this job" data-toggle="tooltip"
+						type="button" class="btn btn-sm btn-warning"><i
+							class="glyphicon glyphicon-edit"></i></a> <a th:href="@{'/'}"
+						data-original-title="Job list" data-toggle="tooltip" type="button"
+						class="btn btn-sm btn-primary"><i
+							class="glyphicon glyphicon-th-list"></i></a> <a
+						th:href="@{'jobs/' + ${job.id} +'/delete'}"
+						data-original-title="Remove this job" data-toggle="tooltip"
+						type="button" class="btn btn-sm btn-danger"><i
+							class="glyphicon glyphicon-remove"></i></a>
+					</span>
 				</div>
 			</div>
 		</div>
