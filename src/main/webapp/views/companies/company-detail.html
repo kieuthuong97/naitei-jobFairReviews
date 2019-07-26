@@ -5,8 +5,9 @@
 
 <div layout:fragment="body">
 	<div class="container">
+
 		<div class="row">
-		<!-- Alert -->
+			<!-- Alert -->
 			<div th:if="${msg != null}" class="alert alert-dismissible "
 				th:class="${css == 'error' ? 'alert-error' : 'alert-success'} + ' alert text-center'"
 				role="alert">
@@ -17,16 +18,15 @@
 				<strong><span th:text="${msg}"></span></strong>
 			</div>
 			<!-- end Alert -->
-		</div>
-		<div class="row">
+
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h3 class="panel-title">Job Details</h3>
+					<h3 class="panel-title">Company Detail</h3>
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-md-3 col-lg-3 text-center ">
-							<img alt="Job Pic"
+					<div class="col-md-3 col-lg-3 text-center ">
+							<img alt="Company Pic"
 								src="https://cdn1.iconfinder.com/data/icons/business-charts/512/customer-512.png"
 								class="img-circle img-responsive">
 						</div>
@@ -34,24 +34,16 @@
 							<table class="table table-user-information">
 								<tbody>
 									<tr>
-										<td>Title</td>
-										<td th:text="${job.jobTitle}" />
+										<td>Name</td>
+										<td th:text="${company.name}" />
 									</tr>
 									<tr>
-										<td>Company</td>
-										<td><a th:href="@{'/companies/' + ${job.company.id}}" th:text="${job.company.name}"></a></td>
-									</tr>
-									<tr>
-										<td>Language</td>
-										<td th:text="${job.language}" /></td>
-									</tr>
-									<tr>
-										<td>Salary</td>
-										<td th:text="${job.salary}+' $'" /></td>
+										<td>Address</td>
+										<td th:text="${company.address}" /></td>
 									</tr>
 									<tr>
 										<td>Description</td>
-										<td th:text="${job.description}" class="breakline"/></td>
+										<td th:text="${company.description}"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -60,19 +52,21 @@
 				</div>
 				<div class="panel-footer" style="height: 50px; !important">
 					<span class="pull-right"> <a
-						th:href="@{'/jobs/' + ${job.id} + '/edit'}"
-						data-original-title="Edit this job" data-toggle="tooltip"
+						th:href="@{'/companies/' + ${company.id} + '/edit'}"
+						data-original-title="Edit information" data-toggle="tooltip"
 						type="button" class="btn btn-sm btn-warning"><i
 							class="glyphicon glyphicon-edit"></i></a> <a
-						th:href="@{'jobs/' + ${job.id} +'/delete'}"
-						data-original-title="Remove this job" data-toggle="tooltip"
-						type="button" class="btn btn-sm btn-danger"><i
+						data-original-title="Remove" data-toggle="tooltip"
+						th:href="@{'/companies/' + ${company.id} + '/delete'}" type="button"
+						class="btn btn-sm btn-danger"><i
 							class="glyphicon glyphicon-remove"></i></a>
 					</span>
 				</div>
+
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 
 </html>

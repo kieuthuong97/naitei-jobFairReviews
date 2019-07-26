@@ -32,11 +32,11 @@ public class Comment {
 	private int reply_id;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	@JoinColumn(name = "user_id")
 	private User user;
 
 	@ManyToOne
-	@JoinColumn(name = "job_id", insertable = false, updatable = false)
+	@JoinColumn(name = "job_id")
 	private Job job;
 
 }

@@ -42,6 +42,7 @@ public class Profile {
 	@Column(name = "certificate")
 	private String certificate;
 
-	@OneToOne(mappedBy = "profile")
+	@OneToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "id")	
 	private User user;
 }

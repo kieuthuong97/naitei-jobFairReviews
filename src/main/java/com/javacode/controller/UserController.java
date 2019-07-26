@@ -26,23 +26,28 @@ public class UserController extends BaseController {
 
 	@GetMapping({ "/users" })
 	public String index(Model model) {
-		model.addAttribute("users", userService.findAll());
+		loadAttributes(model);
 		return "views/user/index";
+	}
+
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+	public String show(@PathVariable("id") int id, Model model,  final RedirectAttributes redirectAttributes) {
+		User user = userService.findById(id);
+		if (user == null) {
+			addRedirectMessageWarning(redirectAttributes,  "user.search.fail");
+			return "redirect:/users";
+		}
+		model.addAttribute("user", user);
+		return "views/user/user";
 	}
 
 	@RequestMapping(value = "/users/{id}/delete", method = RequestMethod.GET)
 	public String deleteUser(@PathVariable("id") Integer id, final RedirectAttributes redirectAttributes) {
 		log.info("delete user");
 		if (userService.deleteUser(id)) {
-			redirectAttributes.addFlashAttribute("css", "success");
-
-			redirectAttributes.addFlashAttribute("msg",
-					messageSource.getMessage("user.delete.success", null, Locale.US));
-
+			addRedirectMessageSuccess(redirectAttributes, "user.delete.success");
 		} else {
-			redirectAttributes.addFlashAttribute("css", "error");
-			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("user.delete.fail", null, Locale.US));
-
+			addRedirectMessageFail(redirectAttributes, "user.delete.fail");
 		}
 		return "redirect:/users";
 	}
@@ -56,8 +61,12 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "/users/{id}/edit", method = RequestMethod.GET)
-	public String editUser(@PathVariable("id") int id, Model model) {
+	public String editUser(@PathVariable("id") int id, Model model,  final RedirectAttributes redirectAttributes) {
 		User user = userService.findById(id);
+		if (user == null) {
+			addRedirectMessageWarning(redirectAttributes,  "user.search.fail");
+			return "redirect:/users";
+		}
 		model.addAttribute("userForm", user);
 		model.addAttribute("status", "edit");
 		return "views/user/user-form";
@@ -65,32 +74,35 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	public String submitAddOrUpdateUser(@Valid @ModelAttribute("userForm") User user, BindingResult bindingResult,
-
 			@RequestParam("status") String status, @RequestParam("email") String email, Model model,
 			final RedirectAttributes redirectAttributes) {
 		log.info("submit add/update user");
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("css", "error");
 			model.addAttribute("status", status);
 			if (status.equals("add")) {
-				model.addAttribute("msg", messageSource.getMessage("user.add.error", null, Locale.US));
+				addModelMessageFail(model, "user.create.fail");
 			}
 			if (status.equals("edit")) {
-				model.addAttribute("msg", messageSource.getMessage("user.edit.error", null, Locale.US));
+				addModelMessageFail(model, "user.edit.fail");
 			}
 			return "views/user/user-form";
 		}
+		try {
+			userService.saveOrUpdate(user);
+		} catch (Exception e) {
+			model.addAttribute("status", status);
+			addModelMessageFail(model, "user.email.unique");
+			return "views/user/user-form";
+		}
 
-		userService.saveOrUpdate(user);
-		model.addAttribute("user", user);
+		model.addAttribute("user", userService.findById(user.getId()));
 		if (status.equals("add")) {
-			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("user.add.success", null, Locale.US));
+			addRedirectMessageSuccess(redirectAttributes, "user.create.success");
 		}
 		if (status.equals("edit")) {
-			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("user.edit.success", null, Locale.US));
-
+			addRedirectMessageSuccess(redirectAttributes, "user.edit.success");
 		}
-		return "redirect:/users";
+		return "redirect:/users/" + user.getId();
 	}
 
 	@RequestMapping(value = "/searchUsers", method = RequestMethod.GET)
