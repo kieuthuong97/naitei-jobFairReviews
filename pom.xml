@@ -13,7 +13,7 @@
 		<junit.version>4.12</junit.version>
 		<logback.version>1.2.3</logback.version>
 		<jetty-maven-plugin.version>9.4.15.v20190215</jetty-maven-plugin.version>
-		<mysql-connector-java>6.0.6</mysql-connector-java>
+		<mysql-connector-java>8.0.11</mysql-connector-java>
 		<hibernate.version>5.4.1.Final</hibernate.version>
 		<hibernate-validator>6.0.7.Final</hibernate-validator>
 		<hibernate-common.version>5.0.1.Final</hibernate-common.version>
