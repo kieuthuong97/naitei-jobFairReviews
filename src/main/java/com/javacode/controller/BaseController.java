@@ -1,14 +1,19 @@
 package com.javacode.controller;
 
-import org.codehaus.groovy.tools.shell.util.MessageSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
+import org.springframework.context.MessageSource;
 
-@Component
+import com.javacode.service.JobService;
+import com.javacode.service.UserService;
+
 public class BaseController {
 	@Autowired
-	@Lazy
 	protected MessageSource messageSource;
+	
+	@Autowired
+	protected JobService jobService;
+	
+	@Autowired
+	protected UserService userService;
+
 }

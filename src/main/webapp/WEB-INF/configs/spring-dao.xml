@@ -5,15 +5,11 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="jobDAO" class="com.javacode.dao.impl.JobDAOImpl">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 	<bean id="userDAO" class="com.javacode.dao.impl.UserDAOImpl">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 </beans>

@@ -25,9 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class UserController extends BaseController{
 
-	@Autowired
-	private UserService userService;
-
 	@GetMapping({ "/users" })
 	public String index(Model model) {
 		model.addAttribute("users", userService.findAll());
