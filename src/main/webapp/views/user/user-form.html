@@ -4,6 +4,17 @@
 	layout:decorate="views/layout/base-layout">
 <div layout:fragment="body">
 	<div class="container" style="margin: 0 auto;">
+
+		<!--alerts-->
+		<div th:if="${msg != null}" class="alert alert-dismissible "
+			th:class="${css == 'error' ? 'alert-error' : 'alert-success'} + ' alert text-center'"
+			role="alert">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong><span th:text="${msg}"></span></strong>
+		</div>
 		<h1 th:if="${status == 'add'}">Add User</h1>
 		<h1 th:if="${status == 'edit'}">Update User</h1>
 		<br />

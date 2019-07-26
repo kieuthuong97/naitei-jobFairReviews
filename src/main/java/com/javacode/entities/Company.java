@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,12 +27,15 @@ public class Company {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@NotEmpty(message = "{company.name.notNull}")
 	@Column(name = "companyName")
 	private String name;
 
+	@NotEmpty(message = "{company.address.notNull}")
 	@Column(name = "address")
 	private String address;
 
+	@NotEmpty(message = "{company.description.notNull}")
 	@Column(name = "companyDescription")
 	private String description;
 

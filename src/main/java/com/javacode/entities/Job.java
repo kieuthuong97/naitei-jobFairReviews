@@ -31,7 +31,6 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class Job {
-
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
