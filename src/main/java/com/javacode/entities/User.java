@@ -10,8 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.UniqueElements;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,14 +38,13 @@ public class User {
 
 	@NotEmpty(message = "{user.email.notEmpty}")
 	@Email(message = "{user.email.email}")
-	@Column(name = "email")
+	@Column(unique = true, name = "email")
 	private String email;
 
 	@Column(name = "role")
 	private int role;
 
-	@OneToOne
-	@JoinColumn(name = "profile_id", referencedColumnName = "id")
+	@OneToOne(mappedBy = "user")
 	private Profile profile;
 
 	@OneToMany(mappedBy = "user") // we need to duplicate the physical information
