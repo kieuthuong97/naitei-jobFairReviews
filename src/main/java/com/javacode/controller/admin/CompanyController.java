@@ -1,4 +1,4 @@
-package com.javacode.controller;
+package com.javacode.controller.admin;
 
 import javax.validation.Valid;
 
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.javacode.controller.BaseController;
 import com.javacode.entities.Company;
 
 @Controller
@@ -30,7 +31,7 @@ public class CompanyController extends BaseController {
 	}
 
 	@RequestMapping(value = "/companies/{id}", method = RequestMethod.GET)
-	public String show(@PathVariable("id") int id, Model model,  final RedirectAttributes redirectAttributes) {
+	public String show(@PathVariable("id") int id, Model model, final RedirectAttributes redirectAttributes) {
 		logger.info("detail company");
 		Company company = companyService.findById(id);
 		if (company == null) {
@@ -50,19 +51,16 @@ public class CompanyController extends BaseController {
 	}
 
 	@RequestMapping(value = "/companies/{id}/edit", method = RequestMethod.GET)
-	public String editCompany(@PathVariable("id") int id, Model model,  final RedirectAttributes redirectAttributes) {
+	public String editCompany(@PathVariable("id") int id, Model model, final RedirectAttributes redirectAttributes) {
 		Company company = companyService.findById(id);
-		if(company != null) {
+		if (company != null) {
 			model.addAttribute("companyForm", company);
 			model.addAttribute("status", "edit");
 
 			return "views/companies/company-add-form";
 		}
-		else {
-			addRedirectMessageWarning(redirectAttributes, "company.notFound");
-			return "redirect:/companies";
-		}
-		
+		addRedirectMessageWarning(redirectAttributes, "company.notFound");
+		return "redirect:/companies";
 	}
 
 	@RequestMapping(value = "/companies", method = RequestMethod.POST)
@@ -80,7 +78,7 @@ public class CompanyController extends BaseController {
 				addModelMessageFail(model, "company.create.fail");
 			}
 			return "views/companies/company-add-form";
-		}	
+		}
 		
 		companyService.saveOrUpdate(company);
 		model.addAttribute("company", companyService.findById(company.getId()));

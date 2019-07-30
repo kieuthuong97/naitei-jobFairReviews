@@ -1,4 +1,4 @@
-package com.javacode.controller;
+package com.javacode.controller.admin;
 
 import java.util.List;
 import java.util.Locale;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.javacode.controller.BaseController;
 import com.javacode.entities.User;
 
 import lombok.extern.slf4j.Slf4j;

@@ -23,6 +23,7 @@ public class BaseController {
 
 	@Autowired
 	protected CompanyService companyService;
+
 	protected void loadAttributes(Model model) {
 		model.addAttribute("jobs", jobService.findAll());
 		model.addAttribute("users", userService.findAll());

@@ -1,4 +1,4 @@
-package com.javacode.controller;
+package com.javacode.controller.admin;
 
 import java.util.Locale;
 
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.javacode.controller.BaseController;
 import com.javacode.entities.Job;
 import com.javacode.service.JobService;
 
@@ -27,7 +28,7 @@ public class JobController extends BaseController {
 
 	private static final Logger logger = Logger.getLogger(JobController.class);
 
-	@GetMapping({ "/" })
+	@GetMapping({ "/jobs" })
 	public String index(Model model) {
 		loadAttributes(model);
 		return "views/jobs/index";
@@ -54,12 +55,12 @@ public class JobController extends BaseController {
 		} else {
 			addRedirectMessageFail(redirectAttributes, "job.delete.fail");
 		}
-		return "redirect:/";
+		return "redirect:/jobs";
 
 	}
 
 	@RequestMapping(value = "/jobs/add", method = RequestMethod.GET)
-	public String newStudent(Model model) {
+	public String newJob(Model model) {
 		Job job = new Job();
 		loadAttributes(model);
 		model.addAttribute("jobForm", job);
@@ -73,7 +74,7 @@ public class JobController extends BaseController {
 		loadAttributes(model);
 		if(job == null) {
 			addRedirectMessageWarning(redirectAttributes, "job.search.fail");
-			return "redirect:/";
+			return "redirect:/jobs";
 		}
 		model.addAttribute("jobForm", job);
 		model.addAttribute("status", "edit");
@@ -84,7 +85,7 @@ public class JobController extends BaseController {
 	@RequestMapping(value = "/jobs", method = RequestMethod.POST)
 	public String submitAddOrUpdateJob(@Valid @ModelAttribute("jobForm") Job job, BindingResult bindingResult,
 			Model model, @RequestParam("status") String status, final RedirectAttributes redirectAttributes) {
-		logger.info("add/update student");
+		logger.info("add/update job");
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("status", status);
 			if (status.equals("edit")) {
