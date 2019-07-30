@@ -1,4 +1,4 @@
-package com.javacode.controller;
+package com.javacode.controller.admin;
 
 import java.util.Locale;
 
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.javacode.controller.BaseController;
 import com.javacode.entities.Job;
 import com.javacode.service.JobService;
 
@@ -27,18 +28,20 @@ public class JobController extends BaseController {
 
 	private static final Logger logger = Logger.getLogger(JobController.class);
 
-	@GetMapping({ "/" })
+	@GetMapping({ "/jobs" })
 	public String index(Model model) {
-		model.addAttribute("jobs", jobService.findAll());
+		loadAttributes(model);
 		return "views/jobs/index";
 	}
+
 	@RequestMapping(value = "/jobs/{id}", method = RequestMethod.GET)
-	public String show(@PathVariable("id") int id, Model model) {
+	public String show(@PathVariable("id") int id, Model model, final RedirectAttributes redirectAttributes) {
 		logger.info("detail job");
 		Job job = jobService.findById(id);
+
 		if (job == null) {
-			model.addAttribute("css", "danger");
-			model.addAttribute("msg", "Job not found");
+			addRedirectMessageWarning(redirectAttributes, "job.search.fail");
+			return "redirect:/";
 		}
 		model.addAttribute("job", job);
 		return "views/jobs/job";
@@ -48,36 +51,33 @@ public class JobController extends BaseController {
 	public String deleteJob(@PathVariable("id") Integer id, final RedirectAttributes redirectAttributes) {
 		logger.info("delete job");
 		if (jobService.deleteJob(id)) {
-			redirectAttributes.addFlashAttribute("css", "success");
-			redirectAttributes.addFlashAttribute("msg",
-					messageSource.getMessage("job.delete.success", null, Locale.US));
+			addRedirectMessageSuccess(redirectAttributes, "job.delete.success");
 		} else {
-			redirectAttributes.addFlashAttribute("css", "error");
-			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("job.delete.fail", null, Locale.US));
+			addRedirectMessageFail(redirectAttributes, "job.delete.fail");
 		}
-
-		return "redirect:/";
+		return "redirect:/jobs";
 
 	}
 
 	@RequestMapping(value = "/jobs/add", method = RequestMethod.GET)
-	public String newStudent(Model model) {
+	public String newJob(Model model) {
 		Job job = new Job();
-
+		loadAttributes(model);
 		model.addAttribute("jobForm", job);
 		model.addAttribute("status", "add");
-
 		return "views/jobs/job-form";
-
 	}
 
 	@RequestMapping(value = "/jobs/{id}/edit", method = RequestMethod.GET)
-	public String editJob(@PathVariable("id") int id, Model model) {
-
+	public String editJob(@PathVariable("id") int id, Model model, final RedirectAttributes redirectAttributes) {
 		Job job = jobService.findById(id);
+		loadAttributes(model);
+		if(job == null) {
+			addRedirectMessageWarning(redirectAttributes, "job.search.fail");
+			return "redirect:/jobs";
+		}
 		model.addAttribute("jobForm", job);
 		model.addAttribute("status", "edit");
-
 		return "views/jobs/job-form";
 
 	}
@@ -85,30 +85,25 @@ public class JobController extends BaseController {
 	@RequestMapping(value = "/jobs", method = RequestMethod.POST)
 	public String submitAddOrUpdateJob(@Valid @ModelAttribute("jobForm") Job job, BindingResult bindingResult,
 			Model model, @RequestParam("status") String status, final RedirectAttributes redirectAttributes) {
-		logger.info("add/update student");
-
+		logger.info("add/update job");
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("css", "error");
 			model.addAttribute("status", status);
 			if (status.equals("edit")) {
-				model.addAttribute("msg", messageSource.getMessage("job.edit.fail", null, Locale.US));
+				addModelMessageFail(model, "job.edit.fail");
 			}
 			if (status.equals("add")) {
-				model.addAttribute("msg", messageSource.getMessage("job.create.fail", null, Locale.US));
+				addModelMessageFail(model, "job.create.fail");
 			}
 			return "views/jobs/job-form";
 		}
 
 		jobService.saveOrUpdate(job);
-		model.addAttribute("job", job);
-		model.addAttribute("css", "success");
+		model.addAttribute("job", jobService.findById(job.getId()));
 		if (status.equals("edit")) {
-			redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("job.edit.success", null, Locale.US));
+			addRedirectMessageSuccess(redirectAttributes, "job.edit.success");
+		} else {
+			addRedirectMessageSuccess(redirectAttributes, "job.create.success");
 		}
-		if (status.equals("add")) {
-			redirectAttributes.addFlashAttribute("msg",
-					messageSource.getMessage("job.create.success", null, Locale.US));
-		}
-		return "redirect:jobs/" + job.getId() + "/edit";
+		return "redirect:/jobs/" + job.getId();
 	}
 }

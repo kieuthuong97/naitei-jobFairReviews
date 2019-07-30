@@ -69,7 +69,7 @@ public class Job {
 	private List<Comment> comments;
 
 	@ManyToOne
-	@JoinColumn(name = "company_id", insertable = false, updatable = false)
+	@JoinColumn(name = "company_id")
 	private Company company;
 
 }

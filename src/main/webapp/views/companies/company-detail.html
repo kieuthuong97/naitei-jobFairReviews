@@ -19,17 +19,22 @@
 			</div>
 			<!-- end Alert -->
 
-			<div class="panel panel-info" th:if="${msg == null}">
+			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">Company Detail</h3>
 				</div>
 				<div class="panel-body">
 					<div class="row">
+					<div class="col-md-3 col-lg-3 text-center ">
+							<img alt="Company Pic"
+								src="https://cdn1.iconfinder.com/data/icons/business-charts/512/customer-512.png"
+								class="img-circle img-responsive">
+						</div>
 						<div class=" col-md-9 col-lg-9 ">
 							<table class="table table-user-information">
 								<tbody>
 									<tr>
-										<td>Company Name</td>
+										<td>Name</td>
 										<td th:text="${company.name}" />
 									</tr>
 									<tr>
@@ -38,7 +43,7 @@
 									</tr>
 									<tr>
 										<td>Description</td>
-										<td th:switch="${company.description}"></td>
+										<td th:text="${company.description}"></td>
 									</tr>
 								</tbody>
 							</table>

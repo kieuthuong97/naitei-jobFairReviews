@@ -8,7 +8,7 @@
 		<div class="row">
 			<!-- Alert -->
 			<div th:if="${msg != null}" class="alert alert-dismissible "
-				th:class="${css == 'error' ? 'alert-error' : 'alert-success'} + ' alert text-center'"
+				th:class="'alert-' +${css} + ' alert text-center'"
 				role="alert">
 				<button type="button" class="close" data-dismiss="alert"
 					aria-label="Close">
@@ -18,36 +18,37 @@
 			</div>
 			<!-- end Alert -->
 		</div>
-		<div class="row pull-right">
-			<a th:href="@{'/jobs/add'}" class="btn btn-success">Add Job</a>
-		</div>
-		<div class="row md-col-8">
-			<h2>Search From</h2>
-		</div>
-		<div class="row" style="margin-top: 20px">
+
+		<div class="row">
 			<div class="md-col-8">
 				<fieldset>
 					<legend>
 						<h2>Job List</h2>
 					</legend>
-					<table class="table table-hover table-dark text-center">
-						<thead class="bg-primary">
+					<div style="margin-bottom:25px;">
+						<a th:href="@{'/jobs/add'}" class="btn btn-success">Add Job</a>
+					</div>
+					<table id="table_id" class="display text-center">
+						<thead>
 							<tr>
-								<th scope="col" class="text-center">#</th>
-								<th scope="col" class="text-center">Title</th>
-								<th scope="col" class="text-center">Description</th>
-								<th scope="col" class="text-center">Language</th>
-								<th scope="col" class="text-center">Salary</th>
+								<th class="text-center">#</th>
+								<th class="text-center">Title</th>
+								<th class="text-center">Company</th>
+								<th class="text-center">Description</th>
+								<th class="text-center">Language</th>
+								<th class="text-center">Salary</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<th:block th:each="job,iter : ${jobs}">
-								<tr th:style="${iter.odd}? 'background-color: #ccc;'">
+								<tr>
 									<th th:text="${iter.index + 1}"></th>
 									<td th:text="${job.jobTitle}"></td>
+									<td><a th:href="@{'/companies/' + ${job.company.id}}" th:text="${job.company.name}"></a></td>
 									<td th:text="${job.description}"></td>
-									<td th:text="${job.salary}"></td>
+									<td th:text="${job.language}"></td>
+									<td th:text="${job.salary}+' $/Month'"></td>
 									<td><a class="btn btn-primary"
 										th:href="@{'jobs/' +${job.id}}"> Detail</a> <a
 										class="btn btn-warning"
