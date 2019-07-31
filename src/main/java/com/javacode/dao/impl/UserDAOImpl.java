@@ -19,11 +19,17 @@ public class UserDAOImpl extends GenericDAO<Integer, User> implements UserDAO {
 		return getSession().createQuery("from User").getResultList();
 	}
 
+	@Override
+	public User findByEmail(String email) {
+		logger.info("email: " + email);
+		return (User) getSession().createQuery("FROM User where email = :email").setParameter("email", email).getSingleResult();
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> searchUsers(String name, String email) {
-		log.info("name: " + name);
-		log.info("email: " + email);
+		logger.info("name: " + name);
+		logger.info("email: " + email);
 		String sql = "FROM User WHERE email LIKE :name and name LIKE :email";
 		return getSession().createQuery(sql).setParameter("name", '%' + name + '%')
 				.setParameter("email", '%' + email + '%').getResultList();
