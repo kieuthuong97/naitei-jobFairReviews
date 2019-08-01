@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="views/layout/base-layout">
+
+<div layout:fragment="body">
+	<div class="container" style="margin: 0 auto;">
+		<div class="row">
+			<div class="row">
+				<!-- Alert -->
+				<div th:if="${msg != null}" class="alert alert-dismissible "
+					th:class="${css == 'error' ? 'alert-error' : 'alert-success'} + ' alert text-center'"
+					role="alert">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<strong><span th:text="${msg}"></span></strong>
+				</div>
+				<!-- end Alert -->
+			</div>
+
+		</div>
+		<h1 th:if="${status == 'add'}">Add Job</h1>
+		<h1 th:if="${status == 'edit'}">Update Job</h1>
+
+		<br />
+
+		<div class="col-md-6" style="margin: 0 auto;">
+
+			<form action="#" th:action="@{/jobs}" class="form-horizontal"
+				method="post" th:object="${jobForm}">
+				<input type="hidden" th:field="*{id}" /> <input type="hidden"
+					name="status" th:value="${status}" />
+
+				<div class="form-group text-center">
+					<label class="col-sm-2 control-label">Title</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{jobTitle}" class="form-control"
+							placeholder="Title" />
+						<p th:errors="*{jobTitle}" class="text-danger bg-danger" />
+
+					</div>
+				</div>
+
+				<div class="form-group text-center">
+					<label class="col-sm-2 control-label">Company</label>
+					<div class="col-sm-10">
+						<select th:field="*{company.id}" class="form-control">
+							<option th:value="${company.id}" th:text="${company.name}"  th:each="company:${companies}" ></option>
+						</select>
+						<p th:errors="*{jobTitle}" class="text-danger bg-danger" />
+
+					</div>
+				</div>
+
+				<div class="form-group text-center">
+					<label class="col-sm-2 control-label">Language</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{language}" class="form-control"
+							placeholder="Language" />
+						<p th:errors="*{language}" class="text-danger bg-danger" />
+					</div>
+				</div>
+				<div class="form-group text-center">
+					<label class="col-sm-2 control-label">Salary</label>
+					<div class="col-sm-10">
+						<input type="number" th:field="*{salary}" class="form-control"
+							placeholder="Salary" />
+						<p th:errors="*{salary}" class="text-danger bg-danger" />
+					</div>
+				</div>
+				<div class="form-group text-center">
+					<label class="col-sm-2 control-label">Description</label>
+					<div class="col-sm-10">
+						<textarea name="" id="" cols="30" rows="10"
+							class="rounded-0 form-control" th:field="*{description}"
+							placeholder="Description..."></textarea>
+						<p th:errors="*{description}" class="text-danger bg-danger" />
+					</div>
+				</div>
+				<div class="form-group text-center">
+					<input type="submit" class="btn btn-success" value="Submit" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</html>

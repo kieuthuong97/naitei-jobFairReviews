@@ -9,77 +9,37 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "companies")
+@Setter
+@Getter
+@NoArgsConstructor
+
 public class Company {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "name")
+	@NotEmpty(message = "{company.name.notNull}")
+	@Column(name = "companyName")
 	private String name;
 
+	@NotEmpty(message = "{company.address.notNull}")
 	@Column(name = "address")
 	private String address;
 
-	@Column(name = "description")
+	@NotEmpty(message = "{company.description.notNull}")
+	@Column(name = "companyDescription")
 	private String description;
 
 	@OneToMany(mappedBy = "company") // we need to duplicate the physical information
 	private List<Job> jobs;
 
-	public Company() {
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getdescription() {
-		return description;
-	}
-
-	public void setdescription(String description) {
-		this.description = description;
-	}
-
-	public List<Job> getJobs() {
-		return jobs;
-	}
-
-	public void setJobs(List<Job> jobs) {
-		this.jobs = jobs;
-	}
-
-	public Company(int id, String name, String address, String description, List<Job> jobs) {
-		this.id = id;
-		this.name = name;
-		this.address = address;
-		this.description = description;
-		this.jobs = jobs;
-	}
-
-	// getter - setter
 }

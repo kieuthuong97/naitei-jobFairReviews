@@ -4,17 +4,34 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 
-	<display-name>springmvc</display-name>
+	<display-name>jobfair</display-name>
 
 	<!-- Spring MVC -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/configs/*.xml</param-value>
+		<param-value>
+			/WEB-INF/configs/*.xml
+			/WEB-INF/spring-security.xml 
+		</param-value>
 	</context-param>
+	
+	<!-- Spring Security -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<!-- Load web server listener -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
 	</listener>
 
 	<!-- Load servlet dispatcher. This config is manage all path of project. -->
@@ -24,7 +41,7 @@
 		<load-on-startup>1</load-on-startup>
 		<async-supported>true</async-supported>
 	</servlet>
-	
+
 	<!-- Config url which can passed -->
 	<servlet-mapping>
 		<servlet-name>springmvc</servlet-name>

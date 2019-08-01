@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="views/layout/base-layout">
+
+<div layout:fragment="body">
+	<div class="container">
+		<div class="row">
+			<!--alerts-->
+			<div th:if="${msg != null}" class="alert alert-dismissible "
+				th:class="${css == 'error' ? 'alert-error' : 'alert-success'} + ' alert text-center'"
+				role="alert">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong><span th:text="${msg}"></span></strong>
+			</div>
+		</div>
+
+		<!-- User List -->
+		<div class="row">
+			<div class="md-col-8">
+
+				<fieldset>
+					<legend>
+						<h2>User List</h2>
+					</legend>
+					<div style="margin-bottom: 25px;">
+						<a class="btn btn-success" th:href="@{'/users/add'}"> Add User</a>
+					</div>
+					<table class="display" id="table_id">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Name</th>
+								<th scope="col">Email</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="user,iter : ${users}">
+								<tr th:style="${iter.odd}? 'background-color: #ccc;'">
+									<th scope="row" th:text="${iter.index + 1}"></th>
+									<td th:text="${user.name}"></td>
+									<td th:text="${user.email}"></td>
+									<td><a class="btn btn-primary"
+										th:href="@{'/users/' + ${user.id}}"> Profile</a> <a
+										class="btn btn-warning"
+										th:href="@{'/users/' + ${user.id} + '/edit'}"> Edit</a> <a
+										class="btn btn-danger"
+										th:href="@{'/users/' + ${user.id} + '/delete'}"> Delete</a></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</div>
+</html>
