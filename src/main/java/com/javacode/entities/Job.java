@@ -35,7 +35,7 @@ public class Job {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	
 	@NotEmpty(message = "{job.title.notNull}")
 	@Column(name = "jobTitle")
 	private String jobTitle;
@@ -71,5 +71,4 @@ public class Job {
 	@ManyToOne
 	@JoinColumn(name = "company_id")
 	private Company company;
-
 }

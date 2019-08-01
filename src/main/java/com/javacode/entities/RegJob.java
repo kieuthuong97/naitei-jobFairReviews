@@ -1,5 +1,4 @@
 package com.javacode.entities;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +17,6 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-
 public class RegJob {
 	@Id
 	@Column(name = "Id")
@@ -27,7 +25,6 @@ public class RegJob {
 
 	@Column(name = "status")
 	private int status;
-
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
@@ -35,4 +32,5 @@ public class RegJob {
 	@ManyToOne
 	@JoinColumn(name = "job_id", nullable = false)
 	private Job job;
+
 }
