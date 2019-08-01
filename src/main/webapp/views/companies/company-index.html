@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="views/layout/base-layout">
+
+<div layout:fragment="body">
+	<div class="container">
+		<!-- Alert -->
+		<div th:if="${msg != null}" class="alert alert-dismissible "
+			th:class="${css == 'error' ? 'alert-error' : 'alert-success'} + ' alert text-center'"
+			role="alert">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong><span th:text="${msg}"></span></strong>
+		</div>
+		<!-- end Alert -->
+		<div class="row" style="margin-top: 20px">
+			<div class="md-col-8">
+				<fieldset>
+					<legend>
+						<h2 style="float: left; margin-right: 20px;">Company List</h2>
+					</legend>
+					<div style="margin-bottom: 25px;">
+						<a th:href="@{'/companies/add'}" class="btn btn-success">Add Company</a>
+					</div>
+					<table class="display" id="table_id">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Company Name</th>
+								<th scope="col">Address</th>
+								<th scope="col">Description</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="company : ${companies}">
+								<tr>
+									<th scope="row" th:text="${company.id}"></th>
+									<td scope="row" th:text="${company.name}"></td>
+									<td scope="row" th:text="${company.address}"></td>
+									<td scope="row" th:text="${company.description}"></td>
+									<td><a class="btn btn-primary"
+										th:href="@{'/companies/' + ${company.id}}"> Detail	</a> <a
+										class="btn btn-warning"
+										th:href="@{'/companies/' + ${company.id} + '/edit'}"> Edit</a>
+										<a class="btn btn-danger"
+										th:href="@{'/companies/' + ${company.id} + '/delete'}">Delete</a>
+									</td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+</div>
+</html>
