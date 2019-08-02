@@ -28,7 +28,7 @@ public class UserController extends BaseController {
 	@GetMapping({ "/users" })
 	public String index(Model model) {
 		loadAttributes(model);
-		return "views/user/index";
+		return "views/admin/user/index";
 	}
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
@@ -39,7 +39,7 @@ public class UserController extends BaseController {
 			return "redirect:/users";
 		}
 		model.addAttribute("user", user);
-		return "views/user/user";
+		return "views/admin/user/user";
 	}
 
 	@RequestMapping(value = "/users/{id}/delete", method = RequestMethod.GET)
@@ -58,7 +58,7 @@ public class UserController extends BaseController {
 		User user = new User();
 		model.addAttribute("userForm", user);
 		model.addAttribute("status", "add");
-		return "views/user/user-form";
+		return "views/admin/user/user-form";
 	}
 
 	@RequestMapping(value = "/users/{id}/edit", method = RequestMethod.GET)
@@ -70,7 +70,7 @@ public class UserController extends BaseController {
 		}
 		model.addAttribute("userForm", user);
 		model.addAttribute("status", "edit");
-		return "views/user/user-form";
+		return "views/admin/user/user-form";
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
@@ -86,14 +86,14 @@ public class UserController extends BaseController {
 			if (status.equals("edit")) {
 				addModelMessageFail(model, "user.edit.fail");
 			}
-			return "views/user/user-form";
+			return "views/admin/user/user-form";
 		}
 		try {
 			userService.saveOrUpdate(user);
 		} catch (Exception e) {
 			model.addAttribute("status", status);
 			addModelMessageFail(model, "user.email.unique");
-			return "views/user/user-form";
+			return "views/admin/user/user-form";
 		}
 
 		model.addAttribute("user", userService.findById(user.getId()));
@@ -111,7 +111,7 @@ public class UserController extends BaseController {
 		log.info("search user");
 		List<User> users = userService.searchUsers(name, email);
 		model.addAttribute("users", users);
-		return "views/user/index";
+		return "views/admin/user/index";
 	}
 
 }
