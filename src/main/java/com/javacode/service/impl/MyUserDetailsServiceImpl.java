@@ -1,5 +1,7 @@
 package com.javacode.service.impl;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,9 +17,11 @@ public class MyUserDetailsServiceImpl extends BaseServiceImpl implements UserDet
 	@Override
 	public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
 		try {
+			logger.info("email" + email);
 			User user = getUserDAO().findByEmail(email);		
 			if (user != null) {
 				return createUserDetails(user);
+				
 			}
 			return null;
 		} catch (Exception e) {
