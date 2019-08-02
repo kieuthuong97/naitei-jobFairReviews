@@ -20,7 +20,6 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-
 public class Profile {
 	@Id
 	@Column(name = "id")

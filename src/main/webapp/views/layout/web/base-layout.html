@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<title layout:title-pattern="$LAYOUT_TITLE :: $CONTENT_TITLE">JobFair
+	TKC</title>
+
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" th:href="@{/assets/web/css/custom-bs.css}" />
+<link rel="stylesheet"
+	th:href="@{/assets/web/css/jquery.fancybox.min.css}" />
+<link rel="stylesheet"
+	th:href="@{/assets/web/css/bootstrap-select.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/web/fonts/icomoon/style.css}" />
+<link rel="stylesheet"
+	th:href="@{/assets/web/fonts/line-icons/style.css}" />
+<link rel="stylesheet" th:href="@{/assets/web/css/owl.carousel.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/web/css/animate.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/web/css/style.css}" />
+</head>
+
+<body class="hold-transition skin-blue fixed sidebar-mini fuelux">
+	<div th:replace="views/layout/web/header :: header"></div>
+
+	<div class="content-wrapper">
+
+		<section class="content-header" layout:fragment="breadcrumb"></section>
+		<!-- Content Header (Page header) -->
+		<!-- Main content -->
+		<section class="content" layout:fragment="body"></section>
+		<!-- /.content -->
+	</div>
+
+	<footer>
+		<div th:replace="views/layout/web/footer :: footer"></div>
+	</footer>
+
+	<!-- SCRIPTS -->
+	<script th:src="@{/assets/web/js/jquery.min.js}"></script>
+	<script th:src="@{/assets/web/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/web/js/isotope.pkgd.min.js}"></script>
+	<script th:src="@{/assets/web/js/stickyfill.min.js}"></script>
+	<script th:src="@{/assets/web/js/jquery.fancybox.min.js}"></script>
+	<script th:src="@{/assets/web/js/jquery.easing.1.3.js}"></script>
+	<script th:src="@{/assets/web/js/jquery.waypoints.min.js}"></script>
+
+	<script th:src="@{/assets/web/js/jquery.waypoints.min.js}"></script>
+	<script th:src="@{/assets/web/js/jquery.animateNumber.min.js}"></script>
+	<script th:src="@{/assets/web/js/owl.carousel.min.js}"></script>
+
+	<script th:src="@{/assets/web/js/custom.js}"></script>
+
+</body>
+</html>

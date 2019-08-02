@@ -26,7 +26,6 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-
 public class User {
 	@Id
 	@Column(name = "id")
@@ -45,7 +44,7 @@ public class User {
 	@Column(name = "password")
 	@Size(message = "{pass.size}", min = 5, max = 30)
 	private String password;
-	
+
 	@Column(name = "role")
 	private int role;
 
@@ -60,7 +59,7 @@ public class User {
 
 	@OneToMany(mappedBy = "user") // ok
 	private List<RatingJob> ratingjobs;
-	
+
 	public String getRoleString() {
 		if (this.role == 1) {
 			return "ADMIN";
@@ -68,7 +67,7 @@ public class User {
 			return "USER";
 		}
 	}
-	
+
 	@Transient
 	public List<GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
