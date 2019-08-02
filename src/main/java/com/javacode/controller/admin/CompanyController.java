@@ -1,5 +1,8 @@
 package com.javacode.controller.admin;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -24,7 +27,7 @@ public class CompanyController extends BaseController {
 	@RequestMapping(value = "/companies")
 	public ModelAndView index() {
 		logger.info("company page");
-		ModelAndView model = new ModelAndView("views/companies/company-index");
+		ModelAndView model = new ModelAndView("views/admin/companies/company-index");
 		model.addObject("company", new Company());
 		model.addObject("companies", companyService.findAll());
 		return model;
@@ -39,7 +42,7 @@ public class CompanyController extends BaseController {
 			return "redirect:/companies";
 		}
 		model.addAttribute("company", company);
-		return "views/companies/company-detail";
+		return "views/admin/companies/company-detail";
 	}
 
 	@RequestMapping(value = "/companies/add", method = RequestMethod.GET)
@@ -47,7 +50,7 @@ public class CompanyController extends BaseController {
 		model.addAttribute("companyForm", new Company());
 		model.addAttribute("status", "add");
 
-		return "views/companies/company-add-form";
+		return "views/admin/companies/company-add-form";
 	}
 
 	@RequestMapping(value = "/companies/{id}/edit", method = RequestMethod.GET)
@@ -57,7 +60,7 @@ public class CompanyController extends BaseController {
 			model.addAttribute("companyForm", company);
 			model.addAttribute("status", "edit");
 
-			return "views/companies/company-add-form";
+			return "views/admin/companies/company-add-form";
 		}
 		addRedirectMessageWarning(redirectAttributes, "company.notFound");
 		return "redirect:/companies";
@@ -77,7 +80,7 @@ public class CompanyController extends BaseController {
 			if (status.equals("add")) {
 				addModelMessageFail(model, "company.create.fail");
 			}
-			return "views/companies/company-add-form";
+			return "views/admin/companies/company-add-form";
 		}
 		
 		companyService.saveOrUpdate(company);

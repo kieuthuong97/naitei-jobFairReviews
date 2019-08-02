@@ -31,7 +31,7 @@ public class JobController extends BaseController {
 	@GetMapping({ "/jobs" })
 	public String index(Model model) {
 		loadAttributes(model);
-		return "views/jobs/index";
+		return "views/admin/jobs/index";
 	}
 
 	@RequestMapping(value = "/jobs/{id}", method = RequestMethod.GET)
@@ -44,7 +44,7 @@ public class JobController extends BaseController {
 			return "redirect:/";
 		}
 		model.addAttribute("job", job);
-		return "views/jobs/job";
+		return "views/admin/jobs/job";
 	}
 
 	@RequestMapping(value = "/jobs/{id}/delete", method = RequestMethod.GET)
@@ -65,7 +65,7 @@ public class JobController extends BaseController {
 		loadAttributes(model);
 		model.addAttribute("jobForm", job);
 		model.addAttribute("status", "add");
-		return "views/jobs/job-form";
+		return "views/admin/jobs/job-form";
 	}
 
 	@RequestMapping(value = "/jobs/{id}/edit", method = RequestMethod.GET)
@@ -78,7 +78,7 @@ public class JobController extends BaseController {
 		}
 		model.addAttribute("jobForm", job);
 		model.addAttribute("status", "edit");
-		return "views/jobs/job-form";
+		return "views/admin/jobs/job-form";
 
 	}
 
@@ -94,7 +94,7 @@ public class JobController extends BaseController {
 			if (status.equals("add")) {
 				addModelMessageFail(model, "job.create.fail");
 			}
-			return "views/jobs/job-form";
+			return "views/admin/jobs/job-form";
 		}
 
 		jobService.saveOrUpdate(job);

@@ -1,7 +1,9 @@
 package com.javacode.controller.web;
 
+import java.security.Principal;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -28,9 +30,10 @@ public class HomeController extends BaseController {
 
 	private static final Logger logger = Logger.getLogger(HomeController.class);
 
-	@GetMapping({ "/home" })
-	public String index(Model model) {
+	@GetMapping({ "/" })
+	public String index(Model model, HttpSession session, Principal principal) {
 		loadAttributes(model);
+		session.setAttribute("userId", userService.findByEmail(principal.getName()).getId());
 		return "views/web/index";
 	}
 	
