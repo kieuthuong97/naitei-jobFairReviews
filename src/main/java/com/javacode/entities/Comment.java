@@ -1,11 +1,16 @@
 package com.javacode.entities;
+
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -26,8 +31,12 @@ public class Comment {
 	@Column(name = "content")
 	private String content;
 
-	@Column(name = "reply_id")
-	private int reply_id;
+	@OneToMany(mappedBy = "comment", fetch = FetchType.EAGER)
+	private List<Comment> replies;
+
+	@ManyToOne
+	@JoinColumn(name = "reply_id")
+	private Comment comment;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")

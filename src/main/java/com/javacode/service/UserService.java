@@ -14,3 +14,4 @@ public interface UserService extends BaseService<Integer, User> {
 
 	User findByEmail(String email);
 }
+

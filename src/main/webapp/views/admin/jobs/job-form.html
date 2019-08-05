@@ -30,8 +30,11 @@
 
 			<form action="#" th:action="@{/jobs}" class="form-horizontal"
 				method="post" th:object="${jobForm}">
-				<input type="hidden" th:field="*{id}" /> <input type="hidden"
-					name="status" th:value="${status}" />
+				<input type="hidden" name="user_id"
+					th:value="${session.userId}"> 
+					<input type="hidden"
+					th:field="*{id}" /> <input type="hidden" name="status"
+					th:value="${status}" />
 
 				<div class="form-group text-center">
 					<label class="col-sm-2 control-label">Title</label>
@@ -47,7 +50,8 @@
 					<label class="col-sm-2 control-label">Company</label>
 					<div class="col-sm-10">
 						<select th:field="*{company.id}" class="form-control">
-							<option th:value="${company.id}" th:text="${company.name}"  th:each="company:${companies}" ></option>
+							<option th:value="${company.id}" th:text="${company.name}"
+								th:each="company:${companies}"></option>
 						</select>
 						<p th:errors="*{jobTitle}" class="text-danger bg-danger" />
 
