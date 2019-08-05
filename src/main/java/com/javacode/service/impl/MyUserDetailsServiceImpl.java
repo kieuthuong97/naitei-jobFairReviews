@@ -36,10 +36,7 @@ public class MyUserDetailsServiceImpl extends BaseServiceImpl implements UserDet
 		boolean accountNonExpired = true;
 		boolean credentialsNonExpired = true;
 		boolean accountNonLocked = true;
-		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), enabled,
-				accountNonExpired, credentialsNonExpired, accountNonLocked, user.getAuthorities());
+		return new UserAuth(user.getEmail(), user.getPassword(), enabled,
+				accountNonExpired, credentialsNonExpired, accountNonLocked, user.getAuthorities(), user);
 	}
-	
-
-
 }
