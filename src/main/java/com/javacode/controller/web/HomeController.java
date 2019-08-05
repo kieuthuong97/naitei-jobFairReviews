@@ -34,7 +34,6 @@ public class HomeController extends BaseController {
 	@GetMapping({ "/" })
 	public String index(Model model) {
 		loadAttributes(model);
-		session.setAttribute("userId", userService.findByEmail(principal.getName()).getId());
 		return "views/web/index";
 	}
 
