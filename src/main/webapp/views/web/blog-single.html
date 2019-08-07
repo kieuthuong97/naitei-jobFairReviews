@@ -6,7 +6,8 @@
 <div layout:fragment="body" class="site-wrap">
 	<!-- HOME -->
 	<section class="section-hero overlay inner-page bg-image"
-		style="background-image: url('assets/web/images/hero_1.jpg');" id="home-section">
+		style="background-image: url('assets/web/images/hero_1.jpg');"
+		id="home-section">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center">
@@ -18,14 +19,10 @@
 					</div>
 					<h1 class="text-white">Where Do You Learn HTML &amp; CSS in
 						2020?</h1>
-
-
 				</div>
 			</div>
 		</div>
 	</section>
-
-
 	<section class="site-section" id="next-section">
 		<div class="container">
 			<div class="row">
@@ -97,149 +94,85 @@
 							Tags: <a th:href="@{#}">#html</a>, <a th:href="@{#}">#trends</a>
 						</p>
 					</div>
-
-
 					<div class="pt-5">
-						<h3 class="mb-5">6 Comments</h3>
-						<ul class="comment-list">
-							<li class="comment">
-								<div class="vcard bio">
-									<img th:src="@{assets/web/images/person_2.jpg}"
-										alt="Image placeholder">
-								</div>
-								<div class="comment-body">
-									<h3>Jacob Smith</h3>
-									<div class="meta">January 9, 2018 at 2:21pm</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit. Pariatur quidem laborum necessitatibus, ipsam impedit
-										vitae autem, eum officia, fugiat saepe enim sapiente iste
-										iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-									<p>
-										<a href="#" class="reply">Reply</a>
-									</p>
-								</div>
-							</li>
-
+						<h3 class="mb-5">Comment</h3>
+						<ul class="comment-list" th:if="*{comment!=null}">
 							<li class="comment">
 								<div class="vcard bio">
 									<img th:src="@{/assets/web/images/person_1.jpg}"
 										alt="Image placeholder">
 								</div>
-								<div class="comment-body">
-									<h3>Chris Meyer</h3>
+								<div class="comment-body" th:each="comment,iter: ${comment}">
+									<h3 th:text="${comment.user.name}"></h3>
 									<div class="meta">January 9, 2018 at 2:21pm</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit. Pariatur quidem laborum necessitatibus, ipsam impedit
-										vitae autem, eum officia, fugiat saepe enim sapiente iste
-										iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+									<p th:text="${comment.content}"></p>
 									<p>
-										<a th:href="@{#}" class="reply">Reply</a>
+										<a class="reply"
+											th:href="@{'/blog-single/' + ${comment.id} + '/reply'}">Reply</a>
+
 									</p>
 								</div>
 
 								<ul class="children">
-									<li class="comment">
+									<li class="comment" th:if="${replies!=null}"
+										th:each="reply,iter: ${replies}">
 										<div class="vcard bio">
 											<img th:src="@{/assets/web/images/person_2.jpg}"
 												alt="Image placeholder">
 										</div>
 										<div class="comment-body">
-											<h3>Chintan Patel</h3>
+											<h3 th:text="${reply.user.name}"></h3>
 											<div class="meta">January 9, 2018 at 2:21pm</div>
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-												elit. Pariatur quidem laborum necessitatibus, ipsam impedit
-												vitae autem, eum officia, fugiat saepe enim sapiente iste
-												iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-											<p>
-												<a th:href="@{#}" class="reply">Reply</a>
-											</p>
+											<p th:text="${reply.content}"></p>
 										</div>
-
-
-										<ul class="children">
-											<li class="comment">
-												<div class="vcard bio">
-													<img th:src="@{/assets/web/images/person_1.jpg}"
-														alt="Image placeholder">
-												</div>
-												<div class="comment-body">
-													<h3>Jean Doe</h3>
-													<div class="meta">January 9, 2018 at 2:21pm</div>
-													<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-														elit. Pariatur quidem laborum necessitatibus, ipsam
-														impedit vitae autem, eum officia, fugiat saepe enim
-														sapiente iste iure! Quam voluptas earum impedit
-														necessitatibus, nihil?</p>
-													<p>
-														<a th:href="@{#}" class="reply">Reply</a>
-													</p>
-												</div>
-
-												<ul class="children">
-													<li class="comment">
-														<div class="vcard bio">
-															<img th:src="@{assets/web/images/person_2.jpg}"
-																alt="Image placeholder">
-														</div>
-														<div class="comment-body">
-															<h3>Ben Afflick</h3>
-															<div class="meta">January 9, 2018 at 2:21pm</div>
-															<p>Lorem ipsum dolor sit amet, consectetur
-																adipisicing elit. Pariatur quidem laborum
-																necessitatibus, ipsam impedit vitae autem, eum officia,
-																fugiat saepe enim sapiente iste iure! Quam voluptas
-																earum impedit necessitatibus, nihil?</p>
-															<p>
-																<a th:href="@{#}" class="reply">Reply</a>
-															</p>
-														</div>
-													</li>
-												</ul>
-											</li>
-										</ul>
 									</li>
-								</ul>
-							</li>
+									<li>
+										<form th:if="*{comment!=null}" th:object="${replyForm}"
+											th:action="@{'/blog-single/' + ${comment.id} + '/reply'}"
+											class="form-horizontal" method="post">
+											<input type="hidden" th:field="*{id}" /> <input
+												type="hidden" step="1" th:field="${comment.job.id}"
+												class="form-control" placeholder="job" /> <input
+												type="hidden" step="1" th:field="${comment.user.id}">
+											<div class="form-group">
+												<label for="rep-comment">Reply:</label>
+												<textarea class="form-control" rows="5" id="rep-content"
+													name="content"></textarea>
+											</div>
+											<div class="form-group text-center">
+												<div class="col-sm-offset-2">
+													<input type="submit" value="Submit" class="btn btn-success" />
+												</div>
+											</div>
 
-							<li class="comment">
-								<div class="vcard bio">
-									<img th:src="@{/assets/web/images/person_1.jpg}"
-										alt="Image placeholder">
-								</div>
-								<div class="comment-body">
-									<h3>Jean Doe</h3>
-									<div class="meta">January 9, 2018 at 2:21pm</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit. Pariatur quidem laborum necessitatibus, ipsam impedit
-										vitae autem, eum officia, fugiat saepe enim sapiente iste
-										iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-									<p>
-										<a th:href="@{#}" class="reply">Reply</a>
-									</p>
-								</div>
+										</form>
+									</li>
+
+								</ul>
 							</li>
 						</ul>
 						<!-- END comment-list -->
 
 						<div class="comment-form-wrap pt-5">
 							<h3 class="mb-5">Leave a comment</h3>
-							<form action="#" class="">
+							<form th:object="${cmtForm}" th:action="@{/blog-single}"
+								method="post">
 								<div class="form-group">
-									<label for="name">Name *</label> <input type="text"
-										class="form-control" id="name">
+									<label for="name">Job</label> <input th:field="*{job.id}"
+										type="number" class="form-control" id="name">
 								</div>
+
 								<div class="form-group">
-									<label for="email">Email *</label> <input type="email"
-										class="form-control" id="email">
-								</div>
-								<div class="form-group">
-									<label for="website">Website</label> <input type="url"
-										class="form-control" id="website">
+									<!-- 									<label for="name">User</label> <input th:field="*{user.id}" -->
+									<!-- 										type="number" class="form-control" id="name"> -->
+									<input type="hidden" name="user.id"
+										th:value="${#authentication.principal.user.id}">
+
 								</div>
 
 								<div class="form-group">
 									<label for="message">Message</label>
-									<textarea name="" id="message" cols="30" rows="10"
+									<textarea name="content" id="message" cols="30" rows="10"
 										class="form-control"></textarea>
 								</div>
 								<div class="form-group">

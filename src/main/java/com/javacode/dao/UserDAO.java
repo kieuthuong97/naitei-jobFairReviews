@@ -12,3 +12,4 @@ public interface UserDAO extends BaseDAO<Integer, User> {
 
 	User findByEmail(String email);
 }
+

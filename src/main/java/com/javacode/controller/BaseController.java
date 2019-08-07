@@ -7,6 +7,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.javacode.service.CommentService;
 import com.javacode.service.CompanyService;
 import com.javacode.service.JobService;
 import com.javacode.service.UserService;
@@ -20,6 +21,9 @@ public class BaseController {
 
 	@Autowired
 	protected UserService userService;
+	
+	@Autowired
+	protected CommentService commentService;
 
 	@Autowired
 	protected CompanyService companyService;
@@ -28,9 +32,10 @@ public class BaseController {
 		model.addAttribute("jobs", jobService.findAll());
 		model.addAttribute("users", userService.findAll());
 		model.addAttribute("companies", companyService.findAll());
+		model.addAttribute("comments", commentService.findAll());
 	}
 
-	// Add message and css in Model
+	// Add message and css in Model 
 	// Success
 	protected void addModelMessageSuccess(Model model, String nameMsg) {
 		model.addAttribute("css", "success");
@@ -67,4 +72,5 @@ public class BaseController {
 		redirectAttributes.addFlashAttribute("css", "warning");
 		redirectAttributes.addFlashAttribute("msg", messageSource.getMessage(nameMsg, null, Locale.US));
 	}
+
 }
