@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<div class="site-mobile-menu site-navbar-target" >
+<div class="site-mobile-menu site-navbar-target">
 	<div class="site-mobile-menu-header">
 		<div class="site-mobile-menu-close mt-3">
 			<span class="icon-close2 js-menu-toggle"></span>
@@ -28,6 +28,7 @@
 					<li><a th:href="@{about}">About</a></li>
 					<li><a th:href="@{services}">Services</a></li>
 					<li><a th:href="@{blog}">Blog</a></li>
+					<li><a style="width:0px; font-size:24px; color:white" th:href="@{/login}">Login</a><a style="width:0px; margin-left:50px; font-size:22px; color:white" th:href="@{/register}">Register</a></li>
 					<li class="d-lg-none"><a th:href="@{contact.html}">Contact
 							Us</a></li>
 				</ul>
