@@ -7,6 +7,7 @@
 	<http auto-config="true" >
 	    <intercept-url pattern="/login" access="permitAll" />
     	<intercept-url pattern="/" access="permitAll" />
+    	<intercept-url pattern="/register" access="permitAll" />
     	<intercept-url pattern="/companies" access="permitAll" />
     	<intercept-url pattern="/users" access="permitAll" />
 		<intercept-url pattern="/companies/**" access="hasAuthority('ADMIN') or hasAuthority('USER')" />

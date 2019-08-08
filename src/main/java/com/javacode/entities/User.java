@@ -42,7 +42,7 @@ public class User {
 	private String email;
 
 	@Column(name = "password")
-	@Size(message = "{pass.size}", min = 5, max = 30)
+	@Size(message = "{pass.size}", min = 5)
 	private String password;
 
 	@Column(name = "role")
