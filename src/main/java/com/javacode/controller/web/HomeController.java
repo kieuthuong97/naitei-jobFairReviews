@@ -37,12 +37,6 @@ public class HomeController extends BaseController {
 		return "views/web/about";
 	}
 
-	@GetMapping({ "/blog" })
-	public String blog(Model model) {
-		loadAttributes(model);
-		return "views/web/blog";
-	}
-
 	@GetMapping({ "/contact" })
 	public String contact(Model model) {
 		loadAttributes(model);

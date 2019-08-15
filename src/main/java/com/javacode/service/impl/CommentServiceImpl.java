@@ -65,10 +65,9 @@ public class CommentServiceImpl extends BaseServiceImpl implements CommentServic
 	}
 	
 	@Override
-	public Comment saveComment(Comment comment) {
+	public Comment saveComment(Comment comment, int idJob, User user) {
 		try {
-			Job job = getJobDAO().findById(comment.getJob().getId());
-			User user = getUserDAO().findById(comment.getUser().getId());
+			Job job = getJobDAO().findById(idJob);
 			comment.setJob(job);
 			comment.setUser(user);
 			return getCommentDAO().saveOrUpdate(comment);
@@ -79,10 +78,9 @@ public class CommentServiceImpl extends BaseServiceImpl implements CommentServic
 	}
 	
 	@Override
-	public Comment saveReply(Comment reply, Integer id, Comment oldComment) {
+	public Comment saveReply(Comment reply, Integer id, Comment oldComment,int idJob, User user) {
 		try {
-			Job job = getJobDAO().findById(reply.getJob().getId());
-			User user = getUserDAO().findById(reply.getUser().getId());
+			Job job = getJobDAO().findById(idJob);
 			reply.setJob(job);
 			reply.setUser(user);
 			reply.setComment(oldComment);

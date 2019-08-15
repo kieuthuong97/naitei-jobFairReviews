@@ -12,7 +12,7 @@ public interface CommentService extends BaseService<Integer, Comment> {
 
 	List<Comment> findAll();
 	
-	Comment saveReply(Comment reply,Integer id, Comment oldComment);
+	Comment saveReply(Comment reply,Integer id, Comment oldComment,int idJob, User user);
 	
-	Comment saveComment(Comment comment);
+	Comment saveComment(Comment comment,int id_job, User user);
 }

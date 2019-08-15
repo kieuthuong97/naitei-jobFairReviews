@@ -23,7 +23,7 @@ import com.javacode.controller.BaseController;
 import com.javacode.entities.Job;
 import com.javacode.service.JobService;
 
-@Controller
+@Controller("AdminJobController")
 public class JobController extends BaseController {
 
 	private static final Logger logger = Logger.getLogger(JobController.class);
